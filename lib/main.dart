@@ -14,14 +14,25 @@ class BaseApp extends StatefulWidget {
 class _BaseAppState extends State<BaseApp> {
   @override
   Widget build(BuildContext context) {
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    double height(int percentage) {
+      return percentage * MediaQuery.of(context).size.height * 0.01;
+    }
+
+    double width(int percentage) {
+      return percentage * MediaQuery.of(context).size.width * 0.01;
+    }
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       color: Colors.white,
       home: Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+            height: height(100),
+            width: width(100),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                   colors: [Color(0xFF90252F), Color(0xFF43172B)]),
@@ -30,9 +41,9 @@ class _BaseAppState extends State<BaseApp> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height - 200,
-                  width: MediaQuery.of(context).size.width - 600,
-                  margin: const EdgeInsets.all(30),
+                  height: height(90),
+                  width: isLandscape ? width(70) : width(95),
+                  margin: EdgeInsets.all(clamp(width(3), 10, 30)),
                   decoration: const BoxDecoration(
                       color: Color(0xFF171218),
                       borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -41,8 +52,8 @@ class _BaseAppState extends State<BaseApp> {
                     children: [
                       Container(
                           margin: const EdgeInsets.fromLTRB(5, 25, 0, 0),
-                          height: (MediaQuery.of(context).size.height - 200),
-                          width: (MediaQuery.of(context).size.width - 630) / 2,
+                          height: height(90),
+                          width: isLandscape ? width(68) / 2 : width(95) / 2,
                           child: Column(
                             children: [
                               Row(
@@ -170,8 +181,8 @@ class _BaseAppState extends State<BaseApp> {
                           )),
                       Container(
                           margin: const EdgeInsets.all(0),
-                          height: (MediaQuery.of(context).size.height - 200),
-                          width: (MediaQuery.of(context).size.width - 630) / 2,
+                          height: height(90),
+                          width: isLandscape ? width(68) / 2 : width(95) / 2,
                           decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(20),
@@ -186,10 +197,9 @@ class _BaseAppState extends State<BaseApp> {
                   ),
                 ),
                 FlutterLogo(
-                  size:
-                      clamp(MediaQuery.of(context).size.width - 800, 100, 250),
-                  textColor: Colors.blue,
-                  style: FlutterLogoStyle.stacked,
+                  size: isLandscape ? clamp(width(55), 100, 250) : 0,
+                  textColor: Colors.grey,
+                  style: FlutterLogoStyle.markOnly,
                 )
               ],
             )),
