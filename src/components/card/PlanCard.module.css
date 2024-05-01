@@ -1,0 +1,42 @@
+.planCard {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .planName {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .planPrice {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .featuresList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .feature {
+    margin-bottom: 10px;
+  }
+  
+  .enrollButton {
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+  }
+  
+  .enrollButton:hover {
+    background-color: #0056b3;
+  }
+  

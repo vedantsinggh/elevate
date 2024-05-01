@@ -1,0 +1,18 @@
+[
+  {
+    "name":"Electricity",
+    "theory": true,
+    "practice": true,
+    "pyqs": true,
+    "test": false,
+    "progress": 75 
+  },
+  {
+    "name":"Gay sex",
+    "theory": false,
+    "practice": false,
+    "pyqs": false,
+    "test": true,
+    "progress": 25 
+  }
+]
