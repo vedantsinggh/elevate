@@ -15,10 +15,12 @@ import { SearchBar } from 'components/navbar/searchBar/SearchBar';
 import { SidebarResponsive } from 'components/sidebar/Sidebar';
 import PropTypes from 'prop-types';
 import React from 'react';
+import FixedPlugin from "components/fixedPlugin/FixedPlugin";
 
-import { MdNotificationsNone } from 'react-icons/md';
+import { MdNotificationsNone, MdInfoOutline } from 'react-icons/md';
 import { RiCoinLine } from 'react-icons/ri';
 import routes from 'routes.js';
+import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 export default function HeaderLinks(props) {
 	const { secondary } = props;
 	const navbarIcon = useColorModeValue('gray.400', 'white');
@@ -44,6 +46,7 @@ export default function HeaderLinks(props) {
 			borderRadius="30px"
 			boxShadow={shadow}>
 			<SearchBar mb={secondary ? { base: '10px', md: 'unset' } : 'unset'} me="10px" borderRadius="30px" />
+			<NavLink to="/admin/store">
 			<Flex
 				bg={ethBg}
 				display={secondary ? 'flex' : 'flex'}
@@ -63,6 +66,7 @@ export default function HeaderLinks(props) {
 					</Text>
 				</Text>
 			</Flex>
+			</NavLink>
 			<SidebarResponsive routes={routes} />
 			<Menu>
 				<MenuButton p="0px">

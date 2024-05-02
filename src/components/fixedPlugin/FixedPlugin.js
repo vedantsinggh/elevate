@@ -12,8 +12,8 @@ export default function FixedPlugin(props) {
   return (
     <Button
       {...rest}
-      h='60px'
-      w='60px'
+      h='30px'
+      w='30px'
       zIndex='99'
       bg={bgButton}
       position='fixed'
