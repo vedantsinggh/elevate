@@ -9,14 +9,18 @@ import {
 	Text,
 	useColorModeValue
 } from '@chakra-ui/react';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { getAuth } from 'firebase/auth';
+import { app } from 'firebase.js';
 
+import { collection, query, where, getDocs,getFirestore } from "firebase/firestore";
+
+import { useHistory } from 'react-router-dom'; 
 import { ItemContent } from 'components/menu/ItemContent';
 import { SearchBar } from 'components/navbar/searchBar/SearchBar';
 import { SidebarResponsive } from 'components/sidebar/Sidebar';
 import PropTypes from 'prop-types';
-import React from 'react';
-import FixedPlugin from "components/fixedPlugin/FixedPlugin";
-
+import React, {useState, useEffect} from 'react';
 import { MdNotificationsNone, MdInfoOutline } from 'react-icons/md';
 import { RiCoinLine } from 'react-icons/ri';
 import routes from 'routes.js';
@@ -35,6 +39,39 @@ export default function HeaderLinks(props) {
 		'14px 17px 40px 4px rgba(112, 144, 176, 0.18)',
 		'14px 17px 40px 4px rgba(112, 144, 176, 0.06)'
 	);
+
+	
+	const auth = getAuth(app);
+	const [user] = useAuthState(auth);
+	const history = useHistory(); // Use useHistory hook to navigate to another route
+	const firestore = getFirestore(app);
+	const userEmail = "vedantsinggh@gmail.com"; // Access user's email
+	const q = query(collection(firestore, "users"), where("email", "==", userEmail));
+
+	const [Coins, setCoins] = useState(3);
+
+	const getdata = async () => {
+		const querySnapshot = await getDocs(q);
+		console.log(querySnapshot);
+		querySnapshot.forEach((doc) => {
+			const c = (doc.data().coins);
+			setCoins(c);
+		  });
+	}
+	
+	getdata();
+	
+
+	const logout = async () => {
+		try {
+		  await auth.signOut(); // Call signOut method from Firebase Authentication
+		  // Redirect to login page or any other route after successful logout
+		  history.push('/auth/sign-in'); // Redirect to the login page
+		} catch (error) {
+		  console.error('Error signing out:', error);
+		}
+	  };
+
 	return (
 		<Flex
 			w={{ sm: '100%', md: 'auto' }}
@@ -59,7 +96,7 @@ export default function HeaderLinks(props) {
 					<Icon color={ethColor} w="9px" h="14px" as={RiCoinLine} />
 				</Flex>
 				<Text w="max-content" color={ethColor} fontSize="sm" fontWeight="700" me="6px">
-					1,924
+					{Coins}
 					<Text as="span" display={{ base: 'none', md: 'unset' }}>
 						{' '}
 						Coins
@@ -109,7 +146,7 @@ export default function HeaderLinks(props) {
 					<Avatar
 						_hover={{ cursor: 'pointer' }}
 						color="white"
-						name="Adela Parkson"
+						name={user ? user.displayName : "Guest"}
 						bg="#11047A"
 						size="sm"
 						w="40px"
@@ -128,7 +165,7 @@ export default function HeaderLinks(props) {
 							fontSize="sm"
 							fontWeight="700"
 							color={textColor}>
-							👋&nbsp; Hey, Niza
+							👋&nbsp; Hey, {user ? user.displayName : "Guest"}
 						</Text>
 					</Flex>
 					<Flex flexDirection="column" p="10px">
@@ -137,7 +174,9 @@ export default function HeaderLinks(props) {
 							_focus={{ bg: 'none' }}
 							color="red.400"
 							borderRadius="8px"
-							px="14px">
+							px="14px"
+							onClick={logout}
+							>
 							<Text fontSize="sm">Log out</Text>
 						</MenuItem>
 					</Flex>
