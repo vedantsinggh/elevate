@@ -5,6 +5,7 @@ import { Button, Flex, Link, Text } from "@chakra-ui/react";
 
 // Assets
 import banner from "assets/img/nfts/NftBanner1.png";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function Banner() {
   // Chakra Color Mode
@@ -50,7 +51,7 @@ export default function Banner() {
         meticulously crafted to guide you towards exam success!
       </Text>
       <Flex align='center'>
-        <Link href="/test">
+        <NavLink to="/admin/store">
         <Button
           bg='white'
           color='black'
@@ -64,7 +65,7 @@ export default function Banner() {
           me='38px'>
           Discover now
         </Button>
-        </Link>
+        </NavLink>
         <Link href="https://www.youtube.com/watch?v=eOqstrUikiM">
           <Text color='white' fontSize='sm' fontWeight='500'>
             Watch video
