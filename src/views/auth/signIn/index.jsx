@@ -4,6 +4,7 @@ import { app } from "firebase.js";
 
 import { useHistory } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
+import User from "model/user.js"; // Import the User model
 
 import {
   Box,
@@ -18,7 +19,7 @@ import {
 import DefaultAuth from "layouts/auth/Default";
 import illustration from "assets/JEbanner.png";
 import { FcGoogle } from "react-icons/fc";
-import { addDoc, getFirestore, collection } from "@firebase/firestore";
+import { addDoc, getFirestore, collection,query, where, getDocs } from "@firebase/firestore";
 function SignIn() {
 
   
@@ -30,12 +31,22 @@ function SignIn() {
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-
-	  const firestore = getFirestore(app);
-    const docRef = await addDoc(collection(firestore, "users"), {
-      email: "vedantsinggh@gmail.com",
-      coins: "00"
-    });
+  
+      const firestore = getFirestore(app);
+      const usersRef = collection(firestore, "users");
+      const q = query(usersRef, where("email", "==", result.user.email));
+      const querySnapshot = await getDocs(q)
+      if (querySnapshot.empty) {
+        // User does not exist, create a new document
+       // User does not exist, create a new document
+      const newUser = new User(result.user.displayName, result.user.email, "00");
+      await addDoc(usersRef, {
+        name: newUser.name,
+        email: newUser.email,
+        coins: newUser.coins
+      });
+      }
+  
       // Navigate to a different page on successful sign-in
       history.push("/admin");
       // You can also access user data from `result.user` if needed
@@ -51,7 +62,7 @@ function SignIn() {
       });
     }
   };
-
+  
   const textColor = useColorModeValue("navy.700", "white");
   const textColorSecondary = "gray.400";
   const googleBg = useColorModeValue("secondaryGray.300", "whiteAlpha.200");
