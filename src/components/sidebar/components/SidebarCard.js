@@ -7,8 +7,10 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import logoWhite from "assets/img/layout/logoWhite.png";
+import createTest from "createTest";
 import React from "react";
 import { NavLink} from "react-router-dom";
+
 
 export default function SidebarDocs() {
   const bgColor = "linear-gradient(135deg, #868CFF 0%, #4318FF 100%)";
@@ -66,9 +68,9 @@ export default function SidebarDocs() {
           Improve your Score
         </Text>
       </Flex>
-      <NavLink to="/admin/marketplace">
         <Button
           bg='whiteAlpha.300'
+          onClick={createTest}
           _hover={{ bg: "whiteAlpha.200" }}
           _active={{ bg: "whiteAlpha.100" }}
           mb={{ sm: "16px", xl: "24px" }}
@@ -79,7 +81,6 @@ export default function SidebarDocs() {
           mx='auto'>
           Buy Now
         </Button>
-      </NavLink>
     </Flex>
   );
 }

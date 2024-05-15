@@ -12,6 +12,7 @@ import {
 import MainDashboard from "views/admin/default";
 import Marketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
+import Test from "views/admin/testpage";
 import DataTables from "views/admin/dataTables";
 import { CiGrid42 } from "react-icons/ci";
 
@@ -39,6 +40,13 @@ const routes = [
     icon: <Icon as={CiGrid42} width='20px' height='20px' color='inherit' />,
     path: "/test",
     component: Profile,
+  },
+  {
+    name: "Test particular",
+    layout: "/test",
+    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
+    path: "/te",
+    component: Test,
   },
   {
     name: "Store",

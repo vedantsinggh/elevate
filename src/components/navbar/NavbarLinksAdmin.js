@@ -44,9 +44,8 @@ export default function HeaderLinks(props) {
 	const auth = getAuth(app);
 	const [user] = useAuthState(auth);
 	const history = useHistory(); // Use useHistory hook to navigate to another route
-	const firestore = getFirestore(app);
-	const userEmail = "vedantsinggh@gmail.com"; // Access user's email
-	const q = query(collection(firestore, "users"), where("email", "==", userEmail));
+	const firestore = getFirestore(app); 
+	const q = query(collection(firestore, "users"), where("email", "==", user.email));
 
 	const [Coins, setCoins] = useState(3);
 
