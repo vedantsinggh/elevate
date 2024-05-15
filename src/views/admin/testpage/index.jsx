@@ -5,9 +5,10 @@ import { firestore } from "firebase.js"; // Import your Firestore configuration
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-
-
 const TestPage = () => {
+
+  const [isTestSubmitted, setIsTestSubmitted] = useState(false);
+
   const [physicsQuestions, setPhysicsQuestions] = useState([]);
   const [chemistryQuestions, setChemistryQuestions] = useState([]);
   const [mathsQuestions, setMathsQuestions] = useState([]);
@@ -18,6 +19,7 @@ const TestPage = () => {
   
   const auth = getAuth();
   const [user] = useAuthState(auth);
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -89,6 +91,7 @@ const TestPage = () => {
                 TestID: testID
             });
 
+            setIsTestSubmitted(true);
             console.log("Test submitted successfully!");
         } else {
             // Handle case when user document doesn't exist
@@ -99,7 +102,25 @@ const TestPage = () => {
     }
 };
 
+  // Add an event listener for beforeunload event
+  useEffect(() => {
+    const beforeUnloadHandler = (event) => {
+      // Check if the test has been submitted
+      if (!isTestSubmitted) {
+        // Cancel the event (prevent the browser from closing or navigating)
+        event.preventDefault();
+        // Chrome requires a return value to display a custom message
+        event.returnValue = "Are you sure you want to leave? Your test has not been submitted.";
+      }
+    };
 
+    window.addEventListener("beforeunload", beforeUnloadHandler);
+
+    // Cleanup the event listener when component unmounts
+    return () => {
+      window.removeEventListener("beforeunload", beforeUnloadHandler);
+    };
+  }, [isTestSubmitted]);
 
   const handleQuestionClick = (question) => {
     // Update selected question
@@ -149,8 +170,6 @@ const TestPage = () => {
     // Reset answer after submission
     setAnswer(null);
   };
-  
-
   const renderQuestionDetails = () => {
     if (!selectedQuestion) return null;
     const options = ["A", "B", "C", "D"];
