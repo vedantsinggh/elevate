@@ -8,13 +8,16 @@ const TestPage = () => {
   const [chemistryQuestions, setChemistryQuestions] = useState([]);
   const [mathsQuestions, setMathsQuestions] = useState([]);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [answer, setAnswer] = useState(null);
+  const testID = "qPHBaIgHlaTfaGuRojYU";
+
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const physicsQuestionsCollection = collection(firestore, "tests","waXi53C05xbsS3Z41GEE", "physicsQuestions");
-        const chemistryQuestionsCollection = collection(firestore, "tests", "waXi53C05xbsS3Z41GEE","chemistryQuestions");
-        const mathsQuestionsCollection = collection(firestore, "tests", "waXi53C05xbsS3Z41GEE","mathsQuestions");
+        const physicsQuestionsCollection = collection(firestore, "tests",testID, "physicsQuestions");
+        const chemistryQuestionsCollection = collection(firestore, "tests", testID,"chemistryQuestions");
+        const mathsQuestionsCollection = collection(firestore, "tests", testID,"mathsQuestions");
 
         const physicsQuestionsSnapshot = await getDocs(physicsQuestionsCollection);
         const chemistryQuestionsSnapshot = await getDocs(chemistryQuestionsCollection);
@@ -32,6 +35,7 @@ const TestPage = () => {
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
+      
     };
 
     fetchQuestions();
@@ -40,6 +44,28 @@ const TestPage = () => {
 
   const handleQuestionClick = (question) => {
     setSelectedQuestion(question);
+    setAnswer(null);
+  };
+
+  const handleInputChange = (event) => {
+    setAnswer(event.target.value);
+  };
+
+  const isSubmitAnswerEnabled = () => {
+    if (!selectedQuestion) return false;
+    if (selectedQuestion.isInteger) {
+      return answer !== null && answer.trim() !== "";
+    } else {
+      // For multiple choice questions
+      return answer !== null;
+    }
+  };
+
+  const handleSubmitAnswer = () => {
+    // Logic to submit answer
+    console.log("Answer submitted:", answer);
+    // Reset answer after submission
+    setAnswer(null);
   };
 
   const renderQuestionDetails = () => {
@@ -54,88 +80,112 @@ const TestPage = () => {
         {!selectedQuestion.isInteger && (
           <Grid templateColumns="repeat(2, 1fr)" gap={4} mb={4}>
             {options.map((option, index) => (
-              <Button key={index} variant="outline">{option}</Button>
+              <Button
+                key={index}
+                variant="outline"
+                onClick={() => setAnswer(option)}
+                isActive={answer === option}
+              >
+                {option}
+              </Button>
             ))}
           </Grid>
         )}
         {/* For integer type questions */}
         {selectedQuestion.isInteger && (
-          <Input type="number" placeholder="Enter your answer" mb={4} />
+          <Input
+            type="number"
+            placeholder="Enter your answer"
+            mb={4}
+            onChange={handleInputChange}
+            value={answer !== null ? answer : ""}
+          />
         )}
+        <Button
+          onClick={handleSubmitAnswer}
+          colorScheme="blue"
+          size="sm"
+          disabled={!isSubmitAnswerEnabled()}
+        >
+          Submit Answer
+        </Button>
       </>
     );
   };
+
   return (
     <Container maxW="container.xl" mt={{ base: "60px", md: "80px" }}>
       <Grid templateColumns="3fr 1fr" gap={4}>
         {/* Left side: Display selected question */}
         <GridItem>
-          {/* <Heading mb={2} size="md">Selected Question</Heading> */}
           {renderQuestionDetails()}
         </GridItem>
         {/* Right side: Display grid of question numbers */}
-        <GridItem alignSelf="flex-start" position="sticky" top="80px">
+        <GridItem>
           <Heading mb={2} size="md">Question Grid</Heading>
-          <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+          <Grid templateRows="repeat(3, 1fr)" gap={4}>
             {/* Physics questions */}
             <Box>
               <Heading mb={2} size="sm">Physics</Heading>
-              {physicsQuestions.map((question, index) => (
-                <Box
-                  key={question.id}
-                  p={1}
-                  borderWidth="1px"
-                  borderRadius="md"
-                  cursor="pointer"
-                  onClick={() => handleQuestionClick(question)}
-                  height="50px"
-                  width="50px"
-                  textAlign="center"
-                  lineHeight="50px" // vertically center content
-                >
-                  {index + 1}
-                </Box>
-              ))}
+              <Grid templateColumns="repeat(10, 1fr)" gap={2}>
+                {physicsQuestions.slice(0, 30).map((question, index) => (
+                  <Box
+                    key={question.id}
+                    p={1}
+                    borderWidth="1px"
+                    borderRadius="md"
+                    cursor="pointer"
+                    onClick={() => handleQuestionClick(question)}
+                    height="40px"
+                    textAlign="center"
+                    lineHeight="40px" // vertically center content
+                  >
+                    {index + 1}
+                  </Box>
+                ))}
+              </Grid>
             </Box>
             {/* Chemistry questions */}
             <Box>
               <Heading mb={2} size="sm">Chemistry</Heading>
-              {chemistryQuestions.map((question, index) => (
-                <Box
-                  key={question.id}
-                  p={1}
-                  borderWidth="1px"
-                  borderRadius="md"
-                  cursor="pointer"
-                  onClick={() => handleQuestionClick(question)}
-                  height="50px"
-                  width="50px"
-                  textAlign="center"
-                  lineHeight="50px"  // vertically center content
-                >
-                  {index + 1}
-                </Box>
-              ))}
+              <Grid templateColumns="repeat(10, 1fr)" gap={2}>
+                {chemistryQuestions.slice(0, 30).map((question, index) => (
+                  <Box
+                    key={question.id}
+                    p={1}
+                    borderWidth="1px"
+                    borderRadius="md"
+                    cursor="pointer"
+                    onClick={() => handleQuestionClick(question)}
+                    height="40px"
+                    textAlign="center"
+                    lineHeight="40px" // vertically center content
+                  >
+                    {index + 1}
+                  </Box>
+                ))}
+              </Grid>
             </Box>
             {/* Maths questions */}
             <Box>
               <Heading mb={2} size="sm">Maths</Heading>
-              {mathsQuestions.map((question, index) => (
-                <Box
-                  key={question.id}
-                  p={1}
-                  borderWidth="1px"
-                  borderRadius="md"
-                  cursor="pointer"
-                  onClick={() => handleQuestionClick(question)}
-                  height="50px"
-                  width="50px"
-                  textAlign="center"
-                  lineHeight="50px" // vertically center content
-                >
-                  {index + 1}
-                </Box>
-              ))}
+              <Grid templateColumns="repeat(10, 1fr)" gap={2}>
+                {mathsQuestions.slice(0, 30).map((question, index) => (
+                  <Box
+                    key={question.id}
+                    p={1}
+                    borderWidth="1px"
+                    borderRadius="md"
+                    cursor="pointer"
+                    onClick={() => handleQuestionClick(question)}
+                    height="40px"
+                    textAlign="center"
+                    lineHeight="40px" // vertically center content
+                  >
+                    {index + 1}
+                  </Box>
+                ))}
+              </Grid>
             </Box>
           </Grid>
         </GridItem>
