@@ -5,7 +5,7 @@ import { firestore } from "firebase.js"; // Import your Firestore configuration
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-const TestPage = () => {
+const TestPage = ({ testID }) => {
 
   const [isTestSubmitted, setIsTestSubmitted] = useState(false);
 
@@ -15,7 +15,6 @@ const TestPage = () => {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [answer, setAnswer] = useState(null);
   const [questionData, setQuestionData] = useState([]);
-  const testID = "qPHBaIgHlaTfaGuRojYU";
   
   const auth = getAuth();
   const [user] = useAuthState(auth);
@@ -178,7 +177,7 @@ const TestPage = () => {
     return (
       <>
         <Heading mb={2} size="md">Difficulty: {selectedQuestion.difficultyLevel}</Heading>
-        <Image src={selectedQuestion.question} alt="Question Image" maxHeight="300px" />
+        <Image src={selectedQuestion.question} alt="Question Image" maxHeight="600px" />
         <Text mb={2}>{selectedQuestion.questionText}</Text>
         {/* For multiple choice questions */}
         {!selectedQuestion.isInteger && (
