@@ -16,6 +16,7 @@ import { GrChapterAdd } from "react-icons/gr";
 import tableDataCheck from "views/admin/default/variables/tableDataCheck.json";
 import { FaQuestion } from "react-icons/fa"; // Import the LockedOverlay component
 import { app } from "firebase.js"; // Ensure this is your Firebase initialization file
+import LockedOverlay from "components/lockedOverlay";
 
 export default function UserReports() {
   const [testCount, setTestCount] = useState(0);
@@ -94,6 +95,7 @@ export default function UserReports() {
             value={testCount}
           />
         </NavLink>
+        <LockedOverlay>
           <MiniStatistics
             startContent={
               <IconBox
@@ -108,6 +110,8 @@ export default function UserReports() {
             name="Questions solved"
             value="642"
           />
+          </LockedOverlay>
+          <LockedOverlay>
           <MiniStatistics
             startContent={
               <IconBox
@@ -122,15 +126,20 @@ export default function UserReports() {
             name="Chapter left"
             value="18"
           />
+          </LockedOverlay>
       </SimpleGrid>
+      <LockedOverlay>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
           <CheckTable columnsData={columnsDataCheck} tableData={tableDataCheck} />
           <DailyTraffic />
       </SimpleGrid>
+      </LockedOverlay>
+      <LockedOverlay>
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px" mb="20px">
           <Tasks />
           <MiniCalendar h="100%" minW="100%" selectRange={false} />
       </SimpleGrid>
+      </LockedOverlay>
     </Box>
   );
 }

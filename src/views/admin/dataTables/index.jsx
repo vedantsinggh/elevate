@@ -15,6 +15,7 @@ import tableDataDevelopment from "views/admin/dataTables/variables/tableDataDeve
 import tableDataCheck from "views/admin/dataTables/variables/tableDataCheck.json";
 import tableDataColumns from "views/admin/dataTables/variables/tableDataColumns.json";
 import tableDataComplex from "views/admin/dataTables/variables/tableDataComplex.json";
+import LockedOverlay from "components/lockedOverlay";
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState(0);
@@ -24,6 +25,7 @@ export default function Settings() {
   };
 
   return (
+    <LockedOverlay>
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <Tabs index={activeTab} onChange={handleTabChange}>
         <TabList>
@@ -52,5 +54,6 @@ export default function Settings() {
         </TabPanel>
       </Tabs>
     </Box>
+    </LockedOverlay>
   );
 }
