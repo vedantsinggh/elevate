@@ -8,7 +8,7 @@ export const columnsDataCheck = [
     accessor: "progress",
   },
   {
-    Header: "UNITS LEFT",
+    Header: "CHAPTERS LEFT",
     accessor: "unitsleft",
   },
 ];

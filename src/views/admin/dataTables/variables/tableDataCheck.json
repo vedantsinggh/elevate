@@ -1,6 +1,6 @@
 [
   {
-    "name":"Electricity",
+    "name":"UNIT ONE",
     "theory": true,
     "practice": true,
     "pyqs": true,
@@ -8,7 +8,7 @@
     "progress": 75 
   },
   {
-    "name":"Gay sex",
+    "name":"UNIT TWO",
     "theory": false,
     "practice": false,
     "pyqs": false,

@@ -46,7 +46,7 @@ export default function Conversion(props) {
             color={textColor}
             fontSize='md'
             textAlign='start'>
-            pyqs of reproduction
+            pyqs of magnatism
           </Text>
         </Flex>
         <Flex mb='20px'>
@@ -56,7 +56,7 @@ export default function Conversion(props) {
             color={textColor}
             fontSize='md'
             textAlign='start'>
-            chapter one 
+            lecture of circles
           </Text>
         </Flex>
       </Box>
