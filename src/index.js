@@ -10,21 +10,24 @@ import theme from 'theme/theme';
 import { ThemeEditorProvider } from '@hypertheme-editor/chakra-ui';
 import Home from './views/home';
 
+import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter
+
 ReactDOM.render(
-	<ChakraProvider theme={theme}>
-		<React.StrictMode>
-			<ThemeEditorProvider>
-				<HashRouter>
-					<Switch>
-						<Route path={`/auth`} component={AuthLayout} />
-						<Route path={`/admin`} component={AdminLayout} />
-						<Route path={`/test`} component={TestLayout} />
-						<Route path={`/home`} component={Home} />
-						<Redirect from='/' to='/home' />
-					</Switch>
-				</HashRouter>
-			</ThemeEditorProvider>
-		</React.StrictMode>
-	</ChakraProvider>,
-	document.getElementById('root')
+  <ChakraProvider theme={theme}>
+    <React.StrictMode>
+      <ThemeEditorProvider>
+        <BrowserRouter> {/* Replace HashRouter with BrowserRouter */}
+          <Switch>
+            <Route path={`/auth`} component={AuthLayout} />
+            <Route path={`/admin`} component={AdminLayout} />
+            <Route path={`/testplatform/:testID`} component={TestLayout} />
+            <Route path={`/home`} component={Home} />
+            <Redirect from='/' to='/home' />
+          </Switch>
+        </BrowserRouter>
+      </ThemeEditorProvider>
+    </React.StrictMode>
+  </ChakraProvider>,
+  document.getElementById('root')
 );
+

@@ -43,9 +43,9 @@ const routes = [
   },
   {
     name: "Test particular",
-    layout: "/test",
+    layout: "/testplatform",
     icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
-    path: "/te",
+    path: "/:testID",
     component: 2,
   },
   {

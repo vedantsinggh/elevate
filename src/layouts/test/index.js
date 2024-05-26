@@ -11,6 +11,7 @@ import { SidebarContext } from "contexts/SidebarContext";
 // Custom Chakra theme
 export default function Test() {
   // states and functions
+  console.log("in test");
   const [toggleSidebar, setToggleSidebar] = useState(false);
   // functions for changing the states from components
   const getRoute = () => {
@@ -18,7 +19,7 @@ export default function Test() {
   };
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/test") {
+      if (prop.layout === "/testplatform") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -27,14 +28,12 @@ export default function Test() {
           />
         );
       }
-      if (prop.collapse) {
+      // Handle nested routes (if any)
+      if (prop.collapse || prop.category) {
         return getRoutes(prop.items);
       }
-      if (prop.category) {
-        return getRoutes(prop.items);
-      } else {
-        return null;
-      }
+      // If it's neither a layout route nor a nested route, return null
+      return null;
     });
   };
   const authBg = useColorModeValue("white", "navy.900");

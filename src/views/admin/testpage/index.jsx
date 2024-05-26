@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"; // Import useParams from react-router-dom
 import { Container, Grid, GridItem, Box, Text, Button, Heading, Image, Input } from "@chakra-ui/react";
 import { collection, getDocs, doc, where, query, setDoc} from "firebase/firestore";
 import { firestore } from "firebase.js"; // Import your Firestore configuration
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-const TestPage = ({ testID }) => {
+const TestPage = () => { // Remove testID from props
 
+  console.log("in test ka tes");
+  const { testID } = useParams(); // Use useParams to get the testID from the URL
+  console.log(testID);
   const [isTestSubmitted, setIsTestSubmitted] = useState(false);
-
   const [physicsQuestions, setPhysicsQuestions] = useState([]);
   const [chemistryQuestions, setChemistryQuestions] = useState([]);
   const [mathsQuestions, setMathsQuestions] = useState([]);
@@ -56,7 +59,7 @@ const TestPage = ({ testID }) => {
     };
 
     fetchQuestions();
-  }, []);
+  }, [testID]); // Add testID to dependency array
 
   const submitTest = async () => {
     try {
