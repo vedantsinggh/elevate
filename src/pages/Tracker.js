@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Grid } from '@mui/material';
 import SubjectTabs from '../components/SubjectTabs';
 import UnitAccordion from '../components/UnitAccordion';
@@ -51,6 +51,12 @@ const subjects = [
 const Tracker = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [chapterCompletion, setChapterCompletion] = useState({});
+  const [nextTasks, setNextTasks] = useState([]);
+  const [notes, setNotes] = useState({});
+
+  useEffect(() => {
+    setNextTasks(getNextTasks(subjects, chapterCompletion));
+  }, [chapterCompletion]);
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -127,8 +133,6 @@ const Tracker = () => {
     return completedTasks;
   };
 
-  const nextTasks = getNextTasks(subjects, chapterCompletion);
-
   return (
     <Box sx={{ width: '100%' }}>
       <SubjectTabs subjects={subjects} selectedTab={selectedTab} handleTabChange={handleTabChange} />
@@ -168,6 +172,21 @@ const Tracker = () => {
           />
         ))}
         <NextTasksComponent tasks={nextTasks} />
+        {/* Chapter Detail */}
+        {/* <Box sx={{ mt: 3 }}>
+          {subjects[selectedTab].units.map(unit => (
+            unit.chapters.map(chapter => (
+              <ChapterDetail
+                key={chapter}
+                subject={subjects[selectedTab].name}
+                unit={unit.name}
+                chapter={chapter}
+                notes={notes}
+                setNotes={setNotes}
+              />
+            ))
+          ))}
+        </Box> */}
       </Box>
     </Box>
   );
