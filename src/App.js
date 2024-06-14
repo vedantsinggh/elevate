@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import DashboardHome from './pages/DashboardHome';
 import Tracker from './pages/Tracker';
 import { ThemeContextProvider } from './context/ThemeContext';
+import TestsPage from './pages/TestsPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/dashboard/*" element={<Dashboard />}>
             <Route path="home" element={<DashboardHome />} />
             <Route path="tracker" element={<Tracker />} />
+            <Route path="tests" element={<TestsPage />} />
           </Route>
         </Routes>
       </Router>
