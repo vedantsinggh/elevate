@@ -22,6 +22,10 @@ const DrawerMenu = ({ logoSrc, handleLogout }) => {
           <ListItemIcon><PersonIcon style={{ color: '#fff' }} /></ListItemIcon>
           <ListItemText primary="Profile" />
         </ListItem>
+        <ListItem button component={NavLink} to="/dashboard/tests">
+          <ListItemIcon><PersonIcon style={{ color: '#fff' }} /></ListItemIcon>
+          <ListItemText primary="Tests" />
+        </ListItem>
         <ListItem button component={NavLink} to="/dashboard/settings">
           <ListItemIcon><SettingsIcon style={{ color: '#fff' }} /></ListItemIcon>
           <ListItemText primary="Settings" />
