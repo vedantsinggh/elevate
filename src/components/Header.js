@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Button, Container, Box, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink } from 'react-router-dom';
+import { auth } from '../firebase'; // Ensure this import is correct
 
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -21,9 +31,6 @@ const Header = () => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <ListItem button component={NavLink} to="/">
-          <ListItemText primary="Home" />
-        </ListItem>
         <ListItem button component={NavLink} to="/about">
           <ListItemText primary="About" />
         </ListItem>
@@ -36,8 +43,8 @@ const Header = () => {
         <ListItem button component={NavLink} to="/contact">
           <ListItemText primary="Contact" />
         </ListItem>
-        <ListItem button component={NavLink} to="/login">
-          <ListItemText primary="Sign In" />
+        <ListItem button component={NavLink} to={user ? "/dashboard" : "/login"}>
+          <ListItemText primary={user ? "Go to Dashboard" : "Sign In"} />
         </ListItem>
       </List>
     </Box>
@@ -45,16 +52,13 @@ const Header = () => {
 
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: '#3f51b5' }}>
+      <AppBar position="static" sx={{ background: 'rgba(63, 81, 181, 0.7)', backdropFilter: 'blur(10px)' }}>
         <Container maxWidth="lg">
           <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography variant="h6" component="div">
               JEE Mentorship
             </Typography>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button component={NavLink} to="/" color="inherit" sx={{ mx: 2 }}>
-                Home
-              </Button>
               <Button component={NavLink} to="/about" color="inherit" sx={{ mx: 2 }}>
                 About
               </Button>
@@ -70,7 +74,7 @@ const Header = () => {
             </Box>
             <Button
               component={NavLink}
-              to="/login"
+              to={user ? "/dashboard" : "/login"}
               variant="contained"
               color="secondary"
               sx={{
@@ -82,7 +86,7 @@ const Header = () => {
                 }
               }}
             >
-              Sign In
+              {user ? "Go to Dashboard" : "Sign In"}
             </Button>
             <IconButton
               color="inherit"
