@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
-import { Box, CssBaseline, Toolbar, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText} from '@mui/material';
-import { Outlet, Link } from 'react-router-dom';
+import { Box, CssBaseline, Toolbar, Drawer } from '@mui/material';
+import { Outlet } from 'react-router-dom';
 import GlassAppBar from '../components/GlassAppBar';
-import HomeIcon from '@mui/icons-material/Home';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
 import DrawerMenu from '../components/DrawerMenu';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 const Dashboard = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleLogout = () => {
-    console.log('Logout');
-    // Add your logout logic here
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      localStorage.removeItem('user');
+      navigate('/login');
+    } catch (error) {
+      console.error('Error signing out: ', error);
+    }
   };
 
   return (
@@ -45,7 +52,7 @@ const Dashboard = () => {
           }}
           open
         >
-          <DrawerMenu logoSrc="/path/to/your/logo.png" handleLogout={handleLogout} />
+          <DrawerMenu logoSrc="/text_logo_light.png" handleLogout={handleLogout} />
         </Drawer>
       </Box>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

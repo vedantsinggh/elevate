@@ -10,7 +10,7 @@ const DrawerMenu = ({ logoSrc, handleLogout }) => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <Box sx={{ p: 2, textAlign: 'center', backgroundColor: '#121212' }}>
-        <img src={logoSrc} alt="Company Logo" style={{ maxWidth: '100%' }} />
+        <NavLink to={"/"}><img src={logoSrc} alt="Company Logo" style={{ maxWidth: '100%' }} /></NavLink>
       </Box>
       <Divider />
       <List sx={{ flexGrow: 1 }}>
