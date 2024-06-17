@@ -160,7 +160,7 @@ const Tracker = () => {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', paddingTop: '64px' }}> {/* Added padding at the top */}
       <SubjectTabs subjects={subjects} selectedTab={selectedTab} handleTabChange={handleTabChange} />
       <Box sx={{ p: 3 }}>
         <Grid container spacing={2}>

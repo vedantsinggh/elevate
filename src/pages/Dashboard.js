@@ -42,7 +42,7 @@ const Dashboard = () => {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
-          <DrawerMenu logoSrc="/path/to/your/logo.png" handleLogout={handleLogout} />
+          <DrawerMenu logoSrc="/text_logo_light.png" handleLogout={handleLogout} handleDrawerToggle={handleDrawerToggle} />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -52,7 +52,7 @@ const Dashboard = () => {
           }}
           open
         >
-          <DrawerMenu logoSrc="/text_logo_light.png" handleLogout={handleLogout} />
+          <DrawerMenu logoSrc="/text_logo_light.png" handleLogout={handleLogout} handleDrawerToggle={handleDrawerToggle}/>
         </Drawer>
       </Box>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

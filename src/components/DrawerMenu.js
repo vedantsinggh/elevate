@@ -1,15 +1,21 @@
 import React from 'react';
-import { Box, Divider, List, ListItem, ListItemIcon, ListItemText, Button, IconButton } from '@mui/material';
-import { Home as HomeIcon, Person as PersonIcon, Settings as SettingsIcon, ExitToApp as ExitToAppIcon, Brightness4, Brightness7, MenuBook as MenuBookIcon } from '@mui/icons-material';
+import { Box, Divider, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
+import { Home as HomeIcon, Person as PersonIcon, Settings as SettingsIcon, ExitToApp as ExitToAppIcon, Brightness4, Brightness7, MenuBook as MenuBookIcon, Close as CloseIcon } from '@mui/icons-material';
 import { NavLink } from 'react-router-dom';
 import { useThemeContext } from '../context/ThemeContext';
 
-const DrawerMenu = ({ logoSrc, handleLogout }) => {
+const DrawerMenu = ({ logoSrc, handleLogout, handleDrawerToggle }) => {
   const { mode, toggleTheme } = useThemeContext();
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <Box sx={{ p: 2, textAlign: 'center', backgroundColor: '#121212' }}>
+      <Box sx={{ p: 2, textAlign: 'center', backgroundColor: '#121212', position: 'relative' }}>
+        <IconButton
+          onClick={handleDrawerToggle}
+          sx={{ position: 'absolute', top: 0, right: 0, display: { xs: 'block', sm: 'none' } }}
+        >
+          <CloseIcon style={{ color: '#fff' }} />
+        </IconButton>
         <NavLink to={"/"}><img src={logoSrc} alt="Company Logo" style={{ maxWidth: '100%' }} /></NavLink>
       </Box>
       <Divider />

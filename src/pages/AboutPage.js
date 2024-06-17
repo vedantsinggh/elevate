@@ -6,28 +6,16 @@ import styled from '@emotion/styled';
 
 const teamMembers = [
   {
-    name: 'John Doe',
-    role: 'CEO & Founder',
+    name: 'Niza Ma\'am',
+    role: 'Founder',
     photo: 'https://via.placeholder.com/150',
-    description: 'John is the visionary behind our company with over 20 years of experience.',
+    description: 'Excellent mentor and hardworking team member.',
   },
   {
-    name: 'Jane Smith',
-    role: 'CTO',
+    name: 'Aishwary Sir',
+    role: 'Founder',
     photo: 'https://via.placeholder.com/150',
-    description: 'Jane is a tech genius leading our development team with innovative solutions.',
-  },
-  {
-    name: 'Alice Johnson',
-    role: 'CMO',
-    photo: 'https://via.placeholder.com/150',
-    description: 'Alice is a marketing expert with a knack for crafting compelling campaigns.',
-  },
-  {
-    name: 'Bob Brown',
-    role: 'CFO',
-    photo: 'https://via.placeholder.com/150',
-    description: 'Bob manages our finances and ensures our company’s financial health.',
+    description: 'Wide vision and great friend',
   },
 ];
 
@@ -63,7 +51,7 @@ const AboutUs = () => {
             <Grid item xs={12} sm={6} md={3} key={index}>
               <StyledCard
                 sx={{
-                  maxWidth: 345,
+                  maxWidth: 600,
                   mx: 'auto',
                   background: theme.palette.background.paper,
                   boxShadow: 6,

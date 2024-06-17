@@ -3,19 +3,30 @@ import { AppBar, Toolbar, IconButton, Typography, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTheme } from '@mui/material/styles';
 import { getAuth } from 'firebase/auth';
+import { db, doc, getDoc } from '../firebase';
 
 const GlassAppBar = ({ handleDrawerToggle }) => {
   const theme = useTheme();
   const [userName, setUserName] = useState('');
 
   useEffect(() => {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    if (user) {
-      setUserName(user.displayName || 'User');
-    } else {
-      setUserName('User');
-    }
+    const fetchUserName = async () => {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (user) {
+        const userDocRef = doc(db, 'users', user.uid);
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists()) {
+          setUserName(userDoc.data().name || 'User');
+        } else {
+          setUserName('User');
+        }
+      } else {
+        setUserName('User');
+      }
+    };
+
+    fetchUserName();
   }, []);
 
   return (
