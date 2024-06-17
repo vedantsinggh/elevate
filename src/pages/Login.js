@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
-import { Button, Container, Typography, Box, CircularProgress } from '@mui/material';
+import { Button, Container, Typography, Box } from '@mui/material';
 import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
 import { auth, db, doc, getDoc, setDoc } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import { useTheme, createTheme, ThemeProvider } from '@mui/material/styles';
+import { keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
 
 const subjects = [
   {
@@ -65,6 +68,7 @@ const initializeUserData = async (userId) => {
 
 const Login = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -92,30 +96,94 @@ const Login = () => {
     }
   };
 
+  const lightModeTheme = createTheme({
+    palette: {
+      mode: 'light',
+    },
+  });
+
+  // Animation keyframes
+  const fadeIn = keyframes`
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  `;
+
+  const slideIn = keyframes`
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  `;
+
+  const StyledBox = styled(Box)`
+    animation: ${slideIn} 1s ease-out;
+  `;
+
+  const StyledTypography = styled(Typography)`
+    animation: ${fadeIn} 1.5s ease-in;
+  `;
+
+  const StyledButton = styled(Button)`
+    animation: ${fadeIn} 2s ease-in;
+    &:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease-in-out;
+    }
+  `;
+
   return (
-    <Container maxWidth="sm" sx={{ textAlign: 'center', marginTop: '20vh' }}>
-      <Box sx={{ bgcolor: 'background.paper', p: 4, borderRadius: 2, boxShadow: 3 }}>
-        <Typography variant="h4" gutterBottom>
-          Welcome to JEE Tracker
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          Please log in to continue
-        </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleLogin}
-          sx={{
-            mt: 2,
-            background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-            borderRadius: 3,
-            boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-          }}
-        >
-          Login with Google
-        </Button>
-      </Box>
-    </Container>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        backgroundImage: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+      }}
+    >
+      <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
+        <ThemeProvider theme={lightModeTheme}>
+          <StyledBox
+            sx={{
+              bgcolor: 'background.paper',
+              p: 4,
+              borderRadius: 2,
+              boxShadow: 3,
+            }}
+          >
+            <StyledTypography variant="h4" gutterBottom>
+              Welcome to JEE Tracker
+            </StyledTypography>
+            <StyledTypography variant="subtitle1" gutterBottom>
+              Please log in to continue
+            </StyledTypography>
+            <StyledButton
+              variant="contained"
+              onClick={handleLogin}
+              sx={{
+                mt: 2,
+                background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+                borderRadius: 3,
+                boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+                '&:hover': {
+                  background: 'linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)',
+                },
+              }}
+            >
+              Login with Google
+            </StyledButton>
+          </StyledBox>
+        </ThemeProvider>
+      </Container>
+    </Box>
   );
 };
 
