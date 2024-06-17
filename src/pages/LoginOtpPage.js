@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Container, Typography, Button, TextField, MenuItem, FormControl, InputLabel, Select, CircularProgress } from '@mui/material';
-import { auth, db, doc, getDoc, setDoc } from '../firebase';
-import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, getAuth} from 'firebase/auth';
+import { auth, db, doc, getDoc, setDoc, RecaptchaVerifier } from '../firebase';
+import { onAuthStateChanged, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styled from 'styled-components';
@@ -109,22 +109,19 @@ const StyledTextField = styled(TextField)`
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [otp, setOtp] = useState('');
+  const [verificationId, setVerificationId] = useState(null);
   const [selectedClass, setSelectedClass] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
-  const [isNewUser, setIsNewUser] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         localStorage.setItem('user', JSON.stringify(user));
-        const userDocRef = doc(db, 'users', user.uid);
-        const userDoc = await getDoc(userDocRef);
-        if (userDoc.exists()) {
-          navigate('/dashboard/home');
-        } else {
-          setIsNewUser(true);
-        }
+        navigate('/dashboard/home');
       } else {
         localStorage.removeItem('user');
       }
@@ -132,46 +129,55 @@ const Login = () => {
     return () => unsubscribe();
   }, [navigate]);
 
-  const handleLogin = async () => {
+  const setupRecaptcha = () => {
+    if (!window.recaptchaVerifier) {
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
+        size: 'invisible',
+        callback: () => {
+          handleSendOtp();
+        },
+        'expired-callback': () => {
+          window.recaptchaVerifier.clear();
+          setupRecaptcha();
+        },
+      });
+    }
+  };
+
+  const handleSendOtp = async () => {
     setLoading(true);
-    const provider = new GoogleAuthProvider();
+    setupRecaptcha();
+    const appVerifier = window.recaptchaVerifier;
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const userDocRef = doc(db, 'users', user.uid);
-      const userDoc = await getDoc(userDocRef);
-      if (!userDoc.exists()) {
-        setIsNewUser(true);
-      } else {
-        localStorage.setItem('user', JSON.stringify(user));
-        navigate('/dashboard/home');
-      }
+      const confirmationResult = await signInWithPhoneNumber(auth, "+91 " + phoneNumber, appVerifier);
+      setVerificationId(confirmationResult.verificationId);
     } catch (error) {
-      console.error('Error signing in with Google:', error);
+      console.error('Error during sign in with phone number:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSaveDetails = async () => {
-    if (!phoneNumber || !selectedClass) {
-      alert('Please fill in all required fields.');
-      return;
-    }
-
+  const handleVerifyOtp = async () => {
     setLoading(true);
-    const auth = getAuth();
-    const user = auth.currentUser;
-    const userData = {
-      name: user.displayName || '',
-      email: user.email || '',
-      phoneNumber: phoneNumber,
-      class: selectedClass,
-    };
-    await initializeUserData(user.uid, userData);
-    localStorage.setItem('user', JSON.stringify(user));
-    navigate('/dashboard/home');
-    setLoading(false);
+    const credential = PhoneAuthProvider.credential(verificationId, otp);
+    try {
+      const result = await signInWithCredential(auth, credential);
+      const user = result.user;
+      const userData = {
+        name,
+        email,
+        class: selectedClass,
+        phoneNumber: phoneNumber
+      };
+      await initializeUserData(user.uid, userData);
+      localStorage.setItem('user', JSON.stringify(user));
+      navigate('/dashboard/home');
+    } catch (error) {
+      console.error('Error verifying OTP:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -193,25 +199,28 @@ const Login = () => {
             Please log in to continue
           </Typography>
           {loading && <CircularProgress />}
-          {!isNewUser ? (
-            <Button
-              id="sign-in-button"
-              variant="contained"
-              onClick={handleLogin}
-              sx={{
-                mt: 2,
-                background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-                borderRadius: 3,
-                boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-                '&:hover': {
-                  background: 'linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)',
-                },
-              }}
-            >
-              Sign In with Google
-            </Button>
-          ) : (
+          {!verificationId ? (
             <>
+              <StyledTextField
+                fullWidth
+                label="Name"
+                variant="outlined"
+                margin="normal"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                InputLabelProps={{ style: { color: 'white' } }}
+                InputProps={{ style: { color: 'white' } }}
+              />
+              <StyledTextField
+                fullWidth
+                label="Email"
+                variant="outlined"
+                margin="normal"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                InputLabelProps={{ style: { color: 'white' } }}
+                InputProps={{ style: { color: 'white' } }}
+              />
               <StyledTextField
                 fullWidth
                 label="Phone Number"
@@ -236,8 +245,9 @@ const Login = () => {
                 </Select>
               </FormControl>
               <Button
+                id="sign-in-button"
                 variant="contained"
-                onClick={handleSaveDetails}
+                onClick={handleSendOtp}
                 sx={{
                   mt: 2,
                   background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -248,7 +258,35 @@ const Login = () => {
                   },
                 }}
               >
-                Save Details
+                Send OTP
+              </Button>
+            </>
+          ) : (
+            <>
+              <StyledTextField
+                fullWidth
+                label="OTP"
+                variant="outlined"
+                margin="normal"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                InputLabelProps={{ style: { color: 'white' } }}
+                InputProps={{ style: { color: 'white' } }}
+              />
+              <Button
+                variant="contained"
+                onClick={handleVerifyOtp}
+                sx={{
+                  mt: 2,
+                  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+                  borderRadius: 3,
+                  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+                  '&:hover': {
+                    background: 'linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)',
+                  },
+                }}
+              >
+                Verify OTP
               </Button>
             </>
           )}

@@ -3,6 +3,7 @@ import { Box, Container, Typography, Grid, Card, CardContent, Button, CardMedia,
 import { useTheme } from '@mui/material/styles';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { NavLink } from 'react-router-dom';
 
 const pricingPlans = [
   {
@@ -138,9 +139,11 @@ const PricingPage = () => {
                     ))}
                   </Typography>
                   <Box mt={2}>
-                    <Button variant="contained" color="primary">
-                      {plan.actionText}
-                    </Button>
+                    <NavLink to={'https://forms.gle/4aa3kD7cjgyKqMLN7'}>
+                      <Button variant="contained" color="primary">
+                        {plan.actionText}
+                      </Button>
+                    </NavLink>
                   </Box>
                 </CardContent>
               </StyledCard>

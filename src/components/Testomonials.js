@@ -4,15 +4,15 @@ import { Box, Container, Typography, Grid, Card, CardContent } from '@mui/materi
 
 const testimonials = [
   {
-    content: "Very helpful in covering backlog and boosting my score. Initially 172, after mentorship, increased to 210-220. Niza significantly improved my chemistry score from 50 to 91 in mains. Ansh provided great motivation from the start of my mentorship journey. Thanks!",
+    content: "Very helpful in covering backlog and boosting my score. Initially 172, after mentorship, increased to 210-220. Niza Di significantly improved my chemistry score from 50 to 91 in mains. Aishwarya Bhaiya provided great motivation from the start of my mentorship journey. Thanks!",
     author: "Deep"
   },
   {
-    content: "It's great for motivating me to study, especially in challenging subjects like math. Setting and achieving targets gives me inner satisfaction and has been crucial in improving my preparation. Aswarya Bhaiya's guidance has been invaluable. Thank you.",
+    content: "It's great for motivating me to study, especially in challenging subjects like math. Setting and achieving targets gives me inner satisfaction and has been crucial in improving my preparation. Aishwary Bhaiya's guidance has been invaluable. Thank you.",
     author: "Divyanshu"
   },
   {
-    content: "Mera anubhav Ashwarya bhaiya aur Niza didi ke saath bahut achha raha. Unki madad se maine subject ke tips aur maths ke sawaal solve karne ka tarika samjha. Aap logon ki mehnat aur bacchon ki madad karte rahiye. Dhanyavad.\n\n\n",
+    content: "Mera anubhav Aishwary bhaiya aur Niza didi ke saath bahut achha raha. Unki madad se maine subject ke tips aur maths ke sawaal solve karne ka tarika samjha. Aap logon ki mehnat aur bacchon ki madad karte rahiye. Dhanyavad.\n\n\n",
     author: "Alok Pandey"
   }
 ];
