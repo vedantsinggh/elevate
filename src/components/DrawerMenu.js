@@ -18,9 +18,9 @@ const DrawerMenu = ({ logoSrc, handleLogout }) => {
           <ListItemIcon><HomeIcon style={{ color: '#fff' }} /></ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
-        <ListItem button component={NavLink} to="/dashboard/profile">
-          <ListItemIcon><PersonIcon style={{ color: '#fff' }} /></ListItemIcon>
-          <ListItemText primary="Profile" />
+        <ListItem button component={NavLink} to="/dashboard/tracker">
+          <ListItemIcon><MenuBookIcon style={{ color: '#fff' }} /></ListItemIcon>
+          <ListItemText primary="Tracker" />
         </ListItem>
         <ListItem button component={NavLink} to="/dashboard/tests">
           <ListItemIcon><PersonIcon style={{ color: '#fff' }} /></ListItemIcon>
@@ -29,10 +29,6 @@ const DrawerMenu = ({ logoSrc, handleLogout }) => {
         <ListItem button component={NavLink} to="/dashboard/settings">
           <ListItemIcon><SettingsIcon style={{ color: '#fff' }} /></ListItemIcon>
           <ListItemText primary="Settings" />
-        </ListItem>
-        <ListItem button component={NavLink} to="/dashboard/tracker">
-          <ListItemIcon><MenuBookIcon style={{ color: '#fff' }} /></ListItemIcon>
-          <ListItemText primary="Tracker" />
         </ListItem>
       </List>
       <Divider />

@@ -1,60 +1,107 @@
 import React from 'react';
-import { Box, Grid, Typography, Toolbar } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { Assessment, CheckCircle, School } from '@mui/icons-material';
 import DashboardCard from '../components/DashboardCard';
 import PieChartComponent from '../components/PieChartComponent';
 import BarChartComponent from '../components/BarChartComponent';
 import Banner from '../components/Banner';
+import { keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
+
+const pieData = [
+  { name: 'Unsolved', value: 34 },
+  { name: 'Maths', value: 16 },
+  { name: 'Chemistry', value: 12 },
+  { name: 'Physics', value: 13 },
+];
+
+const barData = [
+  { name: 'Test 1', score: 112, average: 109 },
+  { name: 'Test 2', score: 160, average: 130 },
+  { name: 'Test 3', score: 96, average: 144 },
+  { name: 'Test 4', score: 80, average: 133 },
+  { name: 'Test 5', score: 150, average: 136 },
+];
+
+// Define the animation using keyframes
+const blinkAnimation = keyframes`
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+`;
+
+// Create a styled component for the overlay with the animation
+const Overlay = styled(Box)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
+  animation: ${blinkAnimation} 1.5s infinite;
+  z-index: 10;
+`;
+
+const CardWrapper = styled(Box)`
+  position: relative;
+`;
 
 const DashboardHome = () => {
-  const pieData = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
-  ];
-  const barData = [
-    { name: 'Jan', uv: 4000, pv: 2400, amt: 2400 },
-    { name: 'Feb', uv: 3000, pv: 1398, amt: 2210 },
-    { name: 'Mar', uv: 2000, pv: 9800, amt: 2290 },
-    { name: 'Apr', uv: 2780, pv: 3908, amt: 2000 },
-    { name: 'May', uv: 1890, pv: 4800, amt: 2181 },
-    { name: 'Jun', uv: 2390, pv: 3800, amt: 2500 },
-    { name: 'Jul', uv: 3490, pv: 4300, amt: 2100 },
-  ];
-
   return (
     <Box sx={{ p: 3 }}>
       <Banner />
       <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
-          <DashboardCard
-            title="Tests Taken"
-            value="123"
-            icon={Assessment}
-            growth={2.6}
-          />
+          <CardWrapper>
+            <DashboardCard
+              title="Questions Solved"
+              value="123"
+              icon={Assessment}
+              growth={2.6}
+            />
+            <Overlay>Coming Soon</Overlay>
+          </CardWrapper>
         </Grid>
         <Grid item xs={12} md={4}>
-          <DashboardCard
-            title="Tests Passed"
-            value="110"
-            icon={CheckCircle}
-            growth={3.1}
-          />
+          <CardWrapper>
+            <DashboardCard
+              title="Last Test"
+              value="136"
+              icon={CheckCircle}
+              growth={3.1}
+            />
+            <Overlay>Coming Soon</Overlay>
+          </CardWrapper>
         </Grid>
         <Grid item xs={12} md={4}>
-          <DashboardCard
-            title="Top Scores"
-            value="98%"
-            icon={School}
-          />
+          <CardWrapper>
+            <DashboardCard
+              title="Top Scores"
+              value="98%"
+              icon={School}
+            />
+            <Overlay>Coming Soon</Overlay>
+          </CardWrapper>
         </Grid>
         <Grid item xs={12} md={6}>
-          <PieChartComponent data={pieData} title="Test Performance Distribution" />
+          <CardWrapper>
+            <PieChartComponent data={pieData} title="Last Test Performance Distribution" />
+            <Overlay>Coming Soon</Overlay>
+          </CardWrapper>
         </Grid>
         <Grid item xs={12} md={6}>
-          <BarChartComponent data={barData} title="Monthly Test Performance" />
+          <CardWrapper>
+            <BarChartComponent data={barData} title="Past Test Performance" />
+            <Overlay>Coming Soon</Overlay>
+          </CardWrapper>
         </Grid>
       </Grid>
     </Box>

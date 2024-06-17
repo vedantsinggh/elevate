@@ -40,8 +40,8 @@ const BarChartComponent = ({ data, title }) => {
                 itemStyle={{ color: theme.palette.text.primary }}
               />
               <Legend />
-              <Bar dataKey="pv" fill="#8884d8" />
-              <Bar dataKey="uv" fill="#83a6ed" />
+              <Bar dataKey="score" fill="#8884d8" />
+              <Bar dataKey="average" fill="#83a6ed" />
             </BarChart>
           </ResponsiveContainer>
         </Box>

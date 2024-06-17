@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import DashboardHome from './pages/DashboardHome';
 import Tracker from './pages/Tracker';
+import SettingsPage from './pages/SettingsPage';
 import TestsPage from './pages/TestsPage';
 import { ThemeContextProvider } from './context/ThemeContext';
 import Test from './pages/Test'; // Ensure this import is correct
@@ -23,6 +24,7 @@ function App() {
               <Route path="home" element={<DashboardHome />} />
               <Route path="tracker" element={<Tracker />} />
               <Route path="tests" element={<TestsPage />} />
+              <Route path="settings" element={<SettingsPage />} />
             </Route>
             <Route path="/test/:testId" element={<Test />} /> {/* Ensure this route is correct */}
           </Route>

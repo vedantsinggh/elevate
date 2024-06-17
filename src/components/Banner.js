@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import { useTheme } from '@mui/material/styles';
+import { NavLink } from 'react-router-dom';
 
 const BannerContainer = styled(Box)(({ theme }) => ({
   background: theme.palette.mode === 'light' ? 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)' : 'linear-gradient(135deg, #333333 0%, #555555 100%)',
@@ -35,6 +36,7 @@ const Banner = () => {
       <Typography variant="body1" component="div" gutterBottom>
         Enroll now and take advantage of our limited-time discount.
       </Typography>
+      <NavLink to={"/pricing"}>
       <Button
         variant="contained"
         sx={{
@@ -49,6 +51,7 @@ const Banner = () => {
       >
         Learn More
       </Button>
+      </NavLink>
     </BannerContainer>
   );
 };
