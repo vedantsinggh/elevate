@@ -13,11 +13,14 @@ const AboutUs = () => {
         <Grid container spacing={4} alignItems="center">
           <Grid item xs={12} md={6} textAlign="center">
             <Avatar
-              src="https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg"
+              src="/assets/students/devansh.jpeg"
               alt="Student"
               sx={{ width: 200, height: 200, mx: 'auto', boxShadow: 3 }}
             />
             <Typography variant="body1" fontWeight="bold" color="#5b2c91" mt={2}>
+              DEVNASH - 99.8%ile
+            </Typography>
+            <Typography variant="body2" fontWeight="light" color="#5b2c91" mt={2}>
               "The mentorship program transformed my academic journey. I am now more confident and motivated to excel in my studies."
             </Typography>
           </Grid>

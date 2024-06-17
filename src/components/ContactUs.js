@@ -15,16 +15,16 @@ const ContactUs = () => {
               Get in Touch
             </Typography>
             <Typography variant="body1" color="white" gutterBottom>
-              Email: contact@example.com
+              Email: jeeelevate@gmail.com
             </Typography>
             <Typography variant="body1" color="white" gutterBottom>
               Phone: +1234567890
             </Typography>
-            <Typography variant="body1" color="white" gutterBottom>
+            {/* <Typography variant="body1" color="white" gutterBottom>
               Address: 123 Main Street, City, Country
-            </Typography>
+            </Typography> */}
             <Typography variant="body1" color="white" gutterBottom>
-              Hours: Monday - Friday, 9:00 AM - 5:00 PM
+              Hours: Monday - Satuday, 9:00 AM - 1:00 AM
             </Typography>
           </Grid>
           <Grid item xs={12} md={6}>

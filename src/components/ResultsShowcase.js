@@ -4,19 +4,19 @@ import { Box, Grid, Typography, Card, CardContent, CardMedia } from '@mui/materi
 
 const students = [
   {
-    name: 'John Doe',
-    result: 'JEE Rank: 123',
-    photo: 'https://via.placeholder.com/150',
+    name: 'Abhisar',
+    result: '99.73%ile',
+    photo: '/assets/students/abhisar.jpeg',
   },
   {
-    name: 'Jane Smith',
-    result: 'JEE Rank: 456',
-    photo: 'https://via.placeholder.com/150',
+    name: 'Aryan',
+    result: '99.42%ile',
+    photo: '/assets/students/aryan.jpeg',
   },
   {
-    name: 'Alice Johnson',
-    result: 'JEE Rank: 789',
-    photo: 'https://via.placeholder.com/150',
+    name: 'Aditi',
+    result: '98.9%ile',
+    photo: 'https://cdn.dribbble.com/users/312581/screenshots/1676038/female-placeholder.png',
   },
   // Add more student objects as needed
 ];

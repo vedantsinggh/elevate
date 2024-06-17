@@ -4,48 +4,48 @@ import { FaAward } from 'react-icons/fa';
 import { useTheme } from '@mui/material/styles';
 
 const mentors = [
-  {
-    name: 'Mentor 1',
-    expertise: 'Expert in Math and Science',
-    imageUrl: 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
-    badge: 'IITian',
-    emoji: '📘',
-  },
-  {
-    name: 'Mentor 2',
-    expertise: 'Specialist in English and History',
-    imageUrl: 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
-    badge: '99 Percentile',
-    emoji: '📝',
-  },
-  {
-    name: 'Mentor 3',
-    expertise: 'Professional Career Coach',
-    imageUrl: 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
-    badge: 'IITian',
-    emoji: '🎓',
-  },
-  {
-    name: 'Mentor 4',
-    expertise: 'Professional Exam Strategist',
-    imageUrl: 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
-    badge: '99 Percentile',
-    emoji: '📈',
-  },
-  {
-    name: 'Mentor 5',
-    expertise: 'Experienced Mentor',
-    imageUrl: 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
-    badge: 'Top Ranker',
-    emoji: '🌟',
-  },
-  {
-    name: 'Mentor 6',
-    expertise: 'Subject Matter Expert',
-    imageUrl: 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
-    badge: 'PhD',
-    emoji: '🎓',
-  },
+  // {
+  //   name: 'Mentor 1',
+  //   expertise: 'Expert in Math and Science',
+  //   imageUrl: 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
+  //   badge: 'IITian',
+  //   emoji: '📘',
+  // },
+  // {
+  //   name: 'Mentor 2',
+  //   expertise: 'Specialist in English and History',
+  //   imageUrl: 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
+  //   badge: '99 Percentile',
+  //   emoji: '📝',
+  // },
+  // {
+  //   name: 'Mentor 3',
+  //   expertise: 'Professional Career Coach',
+  //   imageUrl: 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
+  //   badge: 'IITian',
+  //   emoji: '🎓',
+  // },
+  // {
+  //   name: 'Mentor 4',
+  //   expertise: 'Professional Exam Strategist',
+  //   imageUrl: 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
+  //   badge: '99 Percentile',
+  //   emoji: '📈',
+  // },
+  // {
+  //   name: 'Mentor 5',
+  //   expertise: 'Experienced Mentor',
+  //   imageUrl: 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
+  //   badge: 'Top Ranker',
+  //   emoji: '🌟',
+  // },
+  // {
+  //   name: 'Mentor 6',
+  //   expertise: 'Subject Matter Expert',
+  //   imageUrl: 'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
+  //   badge: 'PhD',
+  //   emoji: '🎓',
+  // },
 ];
 
 const OurMentors = () => {

@@ -1,24 +1,48 @@
 import React from 'react';
-import { Box, Container, Typography, Grid, Card, CardContent, Button } from '@mui/material';
+import { Box, Container, Typography, Grid, Card, CardContent, Button, CardMedia, Chip } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 const pricingPlans = [
   {
-    title: 'Basic Plan',
-    price: '$9.99/month',
-    features: ['Feature 1', 'Feature 2', 'Feature 3'],
+    title: 'Udaan - Mentorship',
+    price: '₹3499/- till Jan 2025',
+    features: [
+      'Your pathway to first-attempt success with personalized mentorship and comprehensive guidance.',
+      '📚 Tailored Mentorship',
+      '🎓 Comprehensive Curriculum',
+      '💬 Expert Instructors',
+      '🏆 Progress Tracking',
+    ],
+    actionText: 'Buy Now',
+    image: 'https://png.pngtree.com/thumb_back/fh260/back_our/20190619/ourmid/pngtree-class-reunion-poster-image_133308.jpg',
   },
   {
-    title: 'Standard Plan',
-    price: '$19.99/month',
-    features: ['Feature 1', 'Feature 2', 'Feature 3', 'Feature 4'],
+    title: 'Resolve - Doubt solving',
+    price: '₹2999 till Jan 2025',
+    features: [
+      'Nirantar Resolve 2999 ensures seamless doubt-solving till January, offering unwavering support and expertise for your exam readiness',
+      '📚 Continuous Doubt Resolution',
+      '🎓 Expert Guidance',
+      '💬 Comprehensive Coverage',
+      '💬 Interactive Learning',
+    ],
+    actionText: 'Buy Now',
+    image: 'https://png.pngtree.com/thumb_back/fh260/back_our/20190620/ourmid/pngtree-class-reunion-watercolor-poster-background-template-image_146703.jpg',
   },
   {
-    title: 'Premium Plan',
-    price: '$29.99/month',
-    features: ['Feature 1', 'Feature 2', 'Feature 3', 'Feature 4', 'Feature 5'],
+    title: 'Vishwaas - All in one',
+    price: '₹5999 till Jan 2025',
+    features: [
+      'Your trusted partner for exam success, featuring unlimited doubt solving, personalized mentorship, and performance analytics.',
+      '📚 Unlimited Doubt Solving',
+      '🎓 Comprehensive Curriculum',
+      '💬 Personalized Mentorship',
+      '🏆 Performance Analytics',
+    ],
+    actionText: 'Buy Now',
+    image: 'https://img.freepik.com/premium-photo/happy-international-womens-day-around-world-illustration-image-generated-by-ai_349001-5008.jpg',
   },
 ];
 
@@ -85,8 +109,22 @@ const PricingPage = () => {
                   overflow: 'hidden',
                   textAlign: 'center',
                   padding: 2,
+                  position: 'relative',
                 }}
               >
+                {index === pricingPlans.length - 1 && (
+                  <Chip
+                    label="Best Seller"
+                    color="secondary"
+                    sx={{ position: 'absolute', top: 16, left: 16 }}
+                  />
+                )}
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={plan.image}
+                  alt={plan.title}
+                />
                 <CardContent>
                   <Typography variant="h5" component="div" sx={{ color: theme.palette.text.primary }}>
                     {plan.title}
@@ -101,7 +139,7 @@ const PricingPage = () => {
                   </Typography>
                   <Box mt={2}>
                     <Button variant="contained" color="primary">
-                      Choose Plan
+                      {plan.actionText}
                     </Button>
                   </Box>
                 </CardContent>
