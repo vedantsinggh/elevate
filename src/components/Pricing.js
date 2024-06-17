@@ -1,6 +1,7 @@
 // src/components/PricingCards.js
 import React from 'react';
 import { Box, Container, Typography, Grid, Card, CardContent, CardMedia, Button } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 const priceOptions = [
   {
@@ -77,9 +78,11 @@ const PricingCards = () => {
                     ))}
                   </Box>
                   <Box mt={2}>
-                    <Button variant="contained" color="primary">
-                      {option.actionText}
-                    </Button>
+                    <NavLink to={"/pricing"}>
+                      <Button variant="contained" color="primary">
+                        {option.actionText}
+                      </Button>
+                      </NavLink>
                   </Box>
                 </CardContent>
               </Card>

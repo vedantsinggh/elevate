@@ -34,9 +34,6 @@ const Header = () => {
         <ListItem button component={NavLink} to="/about">
           <ListItemText primary="About" />
         </ListItem>
-        <ListItem button component={NavLink} to="/mentors">
-          <ListItemText primary="Mentors" />
-        </ListItem>
         <ListItem button component={NavLink} to="/pricing">
           <ListItemText primary="Pricing" />
         </ListItem>
@@ -56,14 +53,11 @@ const Header = () => {
         <Container maxWidth="lg">
           <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography variant="h6" component="div">
-              JEE Mentorship
+              JEE Elevate
             </Typography>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Button component={NavLink} to="/about" color="inherit" sx={{ mx: 2 }}>
                 About
-              </Button>
-              <Button component={NavLink} to="/mentors" color="inherit" sx={{ mx: 2 }}>
-                Mentors
               </Button>
               <Button component={NavLink} to="/pricing" color="inherit" sx={{ mx: 2 }}>
                 Pricing

@@ -9,13 +9,17 @@ const TestsPage = () => {
   const navigate = useNavigate();
 
   const handleTestClick = (testId) => {
-    navigate(`/test/${testId}`);
+    // Lock accessing the test
+    // navigate(`/test/${testId}`);
   };
 
   return (
     <Box sx={{ padding: 3 }}>
       <Typography variant="h4" gutterBottom>
         Available Tests
+      </Typography>
+      <Typography variant="body1" color="error" gutterBottom>
+        Currently, tests are locked and cannot be accessed.
       </Typography>
       <Grid container spacing={2}>
         {tests.map((test) => (
@@ -27,6 +31,7 @@ const TestsPage = () => {
                 variant="contained"
                 color="primary"
                 sx={{ marginTop: 2 }}
+                disabled
                 onClick={() => handleTestClick(test.id)}
               >
                 Start Test

@@ -10,6 +10,9 @@ import TestsPage from './pages/TestsPage';
 import { ThemeContextProvider } from './context/ThemeContext';
 import Test from './pages/Test'; // Ensure this import is correct
 import PrivateRoute from './components/PrivateRoute';
+import AboutUs from './pages/AboutPage';
+import PricingPage from './pages/PricingPage';
+import ContactUsPage from './pages/ContactUsPage';
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/contact" element={<ContactUsPage />} />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />}>
               <Route index element={<Navigate to="home" />} />

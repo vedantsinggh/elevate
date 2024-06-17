@@ -9,6 +9,7 @@ import PricingCards from '../components/Pricing';
 import Testomonial from '../components/Testomonials'
 import ContactUs from '../components/ContactUs';
 import Footer from '../components/Footer';
+import ResultsShowcase from '../components/ResultsShowcase';
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       <HeroSection />
       <AboutUs />
       <Testomonial/>
+      <ResultsShowcase/>
       <OurMentors />
       <PricingCards />
       <ContactUs />
